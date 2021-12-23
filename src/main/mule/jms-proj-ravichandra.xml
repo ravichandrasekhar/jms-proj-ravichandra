@@ -11,7 +11,7 @@ http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/sc
 		<http:listener-connection host="0.0.0.0" port="${secure::http.Port}" />
 	</http:listener-config>
 	<jms:config name="JMS_Config" doc:name="JMS Config" doc:id="9f5e7eb7-3524-47ef-b4b2-f5d42885c026" >
-		<jms:active-mq-connection username="${secure::jms.user}" password="${secure::jms.password}">
+		<jms:active-mq-connection username="${secure::jms.user}" password="${secure::jms.password}" clientId="mule@122">
 			<jms:factory-configuration brokerUrl="tcp://localhost:61616" />
 		</jms:active-mq-connection>
 	</jms:config>
@@ -46,5 +46,13 @@ output application/json
 			</jms:consumer-type>
 		</jms:consume>
 		<logger level="INFO" doc:name="display consumer logger" doc:id="0749158a-ef67-499f-ae87-0a474daf66e5" message="#[payload]"/>
+	</flow>
+	<flow name="jms-proj-ravichandraFlow2" doc:id="ec4a3c8c-59cc-4fa5-8ced-06f8c9122680" >
+		<jms:listener doc:name="On New Message" doc:id="683ab207-dbb6-4e3d-a80f-5e77f61e0c92" config-ref="JMS_Config" destination="mule-topics-1" numberOfConsumers="1">
+			<jms:consumer-type >
+				<jms:topic-consumer subscriptionName="mule-sub-2" durable="true"/>
+			</jms:consumer-type>
+		</jms:listener>
+		<logger level="INFO" doc:name="subcriber logger" doc:id="f16c0fb3-020a-483c-87da-fd80d3d991dd" message="subcriber logger"/>
 	</flow>
 </mule>

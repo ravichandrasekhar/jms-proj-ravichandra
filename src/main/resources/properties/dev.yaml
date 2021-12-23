@@ -6,3 +6,4 @@ jms:
   password: "![vx3mnJfkSeOOslhXfKhoMA==]"
   destnation: "Queue.user.consume"
   destination1:  "test"
+  
